@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-# todo: variables
-SCRIPT_DIR="${HOME}/BashScripts"
-source "${HOME}/BashScripts/templates/config.conf"
+# variables
+SCRIPT_DIR="${HOME}/Bash-Scripts"
+source "${HOME}/Bash-Scripts/templates/config.conf"
 
 
-# todo: get input through arguments
-while getopts "f:d:prx" opt; do
+# get input through arguments
+while getopts "f:d:prxh" opt; do
     case ${opt} in
     "f")
         filename="${OPTARG}.sh"
@@ -23,6 +23,10 @@ while getopts "f:d:prx" opt; do
     "x")
         execute=true
         ;;
+    "h")
+        usage.sh createbash.sh
+        exit
+        ;;
     ":")
         echo ">| ERROR: incorrect arguments" && exit 1
         ;;
@@ -32,8 +36,13 @@ while getopts "f:d:prx" opt; do
     esac
 done
 
+# validation
+[[ -z ${filename} ]] && {
+    echo ">| ERROR: filename has not been specified"
+    exit 1
+}
 
-# todo: find if directory exists
+# find if directory exists
 if [[ -n ${destination} ]] && [[ ! -d ${destination} ]]; then
  echo ">| ERROR: specified destination does not exist"
  exit 1
@@ -44,12 +53,8 @@ elif [[ -z  ${destination} ]]; then
 fi
 
 
-# todo: find if file already exists
-# todo: create file
-[[ -z ${filename} ]] && {
-    echo ">| ERROR: filename has not been specified"
-    exit 1
-}
+# find if file already exists
+# create file
 
 file_destination="${destination}/${filename}"
 
@@ -80,8 +85,8 @@ else
 fi
 
 
-# todo: write to file
-# todo: add password if required
+# write to file
+# add password if required
 echo "${BASH_SHEBANG}" >> ${file_destination}
 [[ ${password} ]] && {
     printf  "\necho ${PASS_FILE}" >> ${file_destination}
@@ -94,13 +99,14 @@ echo "${BASH_SHEBANG}" >> ${file_destination}
 }
 
 
-# todo: make executable
+# make executable
 echo "setting as executable..."
 chmod +x ${file_destination}
 
 
-# todo: execute file
-konsole -e "${TEMPLATE_DIR}/runcommand.sh '${file_destination}' 'sleep 1'"
-
+# execute file
+if [[ ${execute} ]]; then
+    konsole -e "${SCRIPT_DIR}/runcommand.sh '${file_destination}' 'sleep 3'"
+fi
 echo ">| file located in: ${destination}"
 echo ">| filename: ${filename}"
