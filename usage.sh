@@ -2,21 +2,17 @@
 
 # todo: validation
 
-[[ $# < 1 ]] && {
-    echo ">| ERROR: argument required"
-    exit 1
-}
-[[ $# < 1 ]] && {
-    echo ">| ERROR: too many arguments"
-    exit 1
-}
+[[ $# < 1 ]] && { echo ">| ERROR: argument required"; exit 1; }
+[[ $# > 1 ]] && { echo ">| ERROR: too many arguments"; exit 1; }
 
 # todo: usage of script
 declare -A usage=(
+########################################
 ["usage"]="*** USAGE ***
 
 %%% DESCRIPTION
   - used to find the usage of custom scripts
+  - can only search one script usage at a time
   - makes it easier to understand what the script are being used for
 
 %%% ARGUMENT
@@ -38,21 +34,45 @@ declare -A usage=(
   - '-h' = gives usages
 "
 ########################################
-["khulabuild"]="*** KHULBUILD ***"
-########################################
+["khulabuild"]="*** KHULABUILD ***
 
+%%% DESCRIPTION
+  - build khula projects for quicker deployment
+  - makes builds easier
+
+%%% ARGUMENT
+  - '-p' = project name
+  - '-b' = branch
+  - '-a' = autodeploy project
+  - '-F' = build full dependency
+  - '-A' = builds all projects
+  - '-h' = gives usages
+"
+########################################
 #[""]=""
+########################################
 #[""]=""
+########################################
 #[""]=""
+########################################
 #[""]=""
+########################################
 #[""]=""
+########################################
 #[""]=""
+########################################
 #[""]=""
+########################################
 #[""]=""
+########################################
 #[""]=""
+########################################
 #[""]=""
+########################################
 #[""]=""
+########################################
 #[""]=""
+########################################
 )
 # todo: find usage
 for script in "${!usage[@]}"; do
