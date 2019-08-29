@@ -2,7 +2,7 @@
 
 # todo: validation
 
-[[ $# < 1 ]] && { echo ">| ERROR: argument required"; exit 1; }
+[[ $# < 1 ]] && { echo ">| ERROR: one argument required"; exit 1; }
 [[ $# > 1 ]] && { echo ">| ERROR: too many arguments"; exit 1; }
 
 # todo: usage of script
@@ -49,7 +49,17 @@ declare -A usage=(
   - '-h' = gives usages
 "
 ########################################
-#[""]=""
+["jetbrainsreset"]="*** JETBRAINSRESET ***
+
+%%% DESCRIPTION
+  - Reset Testing period for jetbrains IDE's
+
+%%% ARGUMENT
+  - '--intellij' = resets IntelliJ
+  - '--goland'   = resets GoLand
+  - '--webstorm' = resets WebStorm
+  - '--pycharm'  = resets PyCharm
+"
 ########################################
 #[""]=""
 ########################################
